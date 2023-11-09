@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bookmarks | KiwiNetwork Home</title>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Ubuntu");
+
+        #nav {
+            min-height: 60px;
+            background: white;
+            width: 100%;
+            z-index: 900;
+            -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
+            box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
+            text-align: center;
+        }
+
+        #nav .logo {
+            font-family: "Ubuntu", sans-serif;
+            letter-spacing: 0.08em;
+        }
+
+        body {
+            font-family: "Ubuntu", sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background: #222;
+            /* background: #ff6d92 radial-gradient(circle at center, #f5b200 0, #fc636b 100%);*/
+        }
+
+        .app {
+            display: flex;
+            flex-direction: row;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-flex-direction: row;
+            flex-direction: row;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -webkit-flex-flow: row wrap;
+            flex-flow: row wrap;
+            -webkit-align-content: flex-end;
+            align-content: flex-end;
+            height: 100%;
+            width: 100%;
+        }
+
+        #app {
+            height: 100%;
+            padding-top: 20px;
+            box-sizing: border-box;
+        }
+
+        .bookmark {
+            width: 300px;
+            height: 100px;
+            cursor: pointer;
+            margin: 15px;
+            background: white;
+            border: none;
+            border-radius: 5px;
+            display: flex;
+            padding: 0;
+            overflow: hidden;
+            -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
+            -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
+            box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
+            transition: box-shadow 300ms, -webkit-box-shadow 300ms, -mox-box-shadow 300ms;
+        }
+
+        .bookmark:hover {
+            -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
+            box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        .bookmark--img {
+            height: 100px;
+            min-width: 100px;
+            border: none;
+            border-right: #efefef 2px dashed;
+            outline: none;
+            cursor: pointer;
+            display: flex;
+            padding: 15px;
+            box-sizing: border-box;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bookmark--img img {
+            height: 55px;
+        }
+
+        .bookmark label {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-family: "Roboto", sans-serif;
+            font-size: 16px;
+            background: white;
+            transition: background 300ms;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+
+    <nav id="nav">
+        <h1 class="logo">KiwiNetwork Home</h1>
+    </nav>
+
+    <div id="app"></div>
+
+
+
+    <script src="react.min.js"></script>
+    <script src="react-dom.min.js"></script>
+    <script>
+        let App = React.createClass({
+            displayName: "App",
+
+            bookmarks: [
+                {
+                    name: 'iCloud',
+                    url: 'https://www.icloud.com/',
+                    img: 'http://vignette4.wikia.nocookie.net/logopedia/images/5/5e/Icloud.png/revision/latest?cb=20151107204136'
+                },
+                {
+                    name: 'Google',
+                    url: 'https://google.com',
+                    img: 'data:image/png;base64,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'
+                },
+
+
+            ],
+
+
+
+
+
+            // template
+            render: function () {
+
+                let bookmarks = this.bookmarks.map(bookmark => {
+                    console.log(bookmark);
+                    return /*#__PURE__*/React.createElement(Bookmark, {
+                        url: bookmark.url,
+                        name: bookmark.name,
+                        img: bookmark.img
+                    });
+
+                });
+
+                return /*#__PURE__*/(
+                    React.createElement("div", { className: "app" },
+                        bookmarks));
+
+
+            }
+        });
+
+
+        let Bookmark = React.createClass({
+            displayName: "Bookmark",
+            openBookmark() {
+                window.open(this.props.url, '_blank');
+            },
+            render() {
+                return /*#__PURE__*/(
+                    React.createElement("button", { onClick: this.openBookmark, className: "bookmark" }, /*#__PURE__*/
+                        React.createElement("div", { className: "bookmark--img" }, /*#__PURE__*/
+                            React.createElement("img", { src: this.props.img })), /*#__PURE__*/
+
+
+                        React.createElement("label", null,
+                            this.props.name)));
+
+
+
+            }
+        });
+
+
+        // render component to screen
+        ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.querySelector('#app'));
+    </script>
+
+
+</body>
+
+</html>
