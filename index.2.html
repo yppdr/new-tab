@@ -119,93 +119,90 @@
             background: white;
             transition: background 300ms;
         }
+        a, a:link, a:hover {
+            text-decoration: none!important;
+            color: black;
+        }
     </style>
-
-
 
 </head>
 
 <body>
-
     <nav id="nav">
         <h1 class="logo">KiwiNetwork Home</h1>
     </nav>
 
-    <div id="app"></div>
+
+    <div id="app">
+        
+        <div class="app" id="bookmarks-grid">
+            
+            <button class="bookmark">
+                <div class="bookmark--img"><img
+                        src="http://vignette4.wikia.nocookie.net/logopedia/images/5/5e/Icloud.png/revision/latest?cb=20151107204136">
+                </div><label>iCloud</label>
+            </button>
+            
+        </div>
+    </div>
+   
 
 
 
-    <script src="react.min.js"></script>
-    <script src="react-dom.min.js"></script>
     <script>
-        let App = React.createClass({
-            displayName: "App",
+        const grid = document.getElementById("bookmarks-grid")
 
-            bookmarks: [
-                {
-                    name: 'iCloud',
-                    url: 'https://www.icloud.com/',
-                    img: 'http://vignette4.wikia.nocookie.net/logopedia/images/5/5e/Icloud.png/revision/latest?cb=20151107204136'
-                },
-                {
-                    name: 'Google',
-                    url: 'https://google.com',
-                    img: 'data:image/png;base64,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'
-                },
+        fetch('/bookmarks.json')
+            .then(res => res.json())
+            .then((bookmarks) => {
+                bookmarks.forEach(async (bookmark) => {
+                    const card = document.createElement("span")
+                    //card.classList.add("")
 
+                    for (const book in bookmark) {
+                        const title = document.createElement("p")
+                        title.textContent = book
+                        card.appendChild(title)
 
-            ],
+                        bookmark[book].forEach((link) => {
 
+                            const link_p = document.createElement("button")
+                            link_p.classList.add("bookmark")
 
+                            const link_i_d = document.createElement("div")
+                            link_i_d.classList.add("bookmark--img")
+                            
+                            const link_i = document.createElement("img")
+                            const link_a = document.createElement("a")
 
+                            const link_a_l = document.createElement("label")
 
+                            
 
-            // template
-            render: function () {
+                            if (link.svg) {
+                                link_i.src = `https://cdn.simpleicons.org/${link.svg}`
+                            } else {
+                                const url = new URL(link.furl || link.url)
+                                link_i.src = link.icon || `https://sexual-gray-swallow.faviconkit.com/${url.hostname}/16`
+                            }
+                            
+                            link_a.href = link.url
+                            link_a.textContent = link.name
+                            link_a.setAttribute('target', '_top')
 
-                let bookmarks = this.bookmarks.map(bookmark => {
-                    console.log(bookmark);
-                    return /*#__PURE__*/React.createElement(Bookmark, {
-                        url: bookmark.url,
-                        name: bookmark.name,
-                        img: bookmark.img
-                    });
-
+                            link_p.appendChild(link_i_d)
+                            link_i_d.appendChild(link_i)
+                            link_p.appendChild(link_a_l)
+                            link_a_l.appendChild(link_a)
+                            card.appendChild(link_p)
+                        })
+                        const br = document.createElement("br")
+                        card.appendChild(br)
+                    }
+                    grid.appendChild(card)
                 });
-
-                return /*#__PURE__*/(
-                    React.createElement("div", { className: "app" },
-                        bookmarks));
-
-
-            }
-        });
-
-
-        let Bookmark = React.createClass({
-            displayName: "Bookmark",
-            openBookmark() {
-                window.open(this.props.url, '_blank');
-            },
-            render() {
-                return /*#__PURE__*/(
-                    React.createElement("button", { onClick: this.openBookmark, className: "bookmark" }, /*#__PURE__*/
-                        React.createElement("div", { className: "bookmark--img" }, /*#__PURE__*/
-                            React.createElement("img", { src: this.props.img })), /*#__PURE__*/
-
-
-                        React.createElement("label", null,
-                            this.props.name)));
-
-
-
-            }
-        });
-
-
-        // render component to screen
-        ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.querySelector('#app'));
-    </script>
+            }).catch(err => console.error(err))
+  </script>
 
 
 </body>
