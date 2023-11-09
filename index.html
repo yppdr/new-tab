@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: consolas, sans-serif;
+        }
+        
+        :root {
+          --bg-color: #031321;
+          --primary-color: #2196f3;
+          --secondary-color: #255784;
+        }
+        
+        body {
+          background: var(--bg-color);
+          /*
+            display: flex;
+            justify-content: center;
+            background: var(--bg-color);
+              */
+        }
+        
+        .grid {
+          display: grid;
+          gap: 1rem;
+          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        
+          padding: 5px 5px;
+          color: var(--primary-color);
+          /*text-transform: uppercase;*/
+          letter-spacing: 0px;
+          text-decoration: none;
+          font-size: 16px;
+        }
+        
+        h2 {
+          padding: 5px 5px;
+          color: var(--secondary-color);
+          text-transform: uppercase;
+          letter-spacing: 10px;
+          text-decoration: none;
+          font-size: 16px;
+        }
+        h3 {
+          padding: 5px 0px;
+          color: var(--primary-color);
+          text-transform: uppercase;
+          letter-spacing: 5px;
+          text-decoration: none;
+          font-size: 16px;
+        }
+        p {
+          /*
+          font-family: "Lucida Console", Monaco, monospace;
+          font-size: 12px;
+          letter-spacing: 1px;
+          word-spacing: 0px;
+          color: #000000;
+          font-weight: normal;
+          text-decoration: none;
+          font-style: normal;
+          font-variant: normal;
+          text-transform: none;
+          */
+        }
+        
+        /* unvisited link */
+        a:link {
+          color: green;
+          background-color: transparent;
+          text-decoration: none;
+        }
+        
+        /* visited link */
+        a:visited {
+          color: green;
+          background-color: transparent;
+          text-decoration: none;
+        }
+        
+        /* mouse over link */
+        a:hover {
+          color: white;
+          background-color: transparent;
+          text-decoration: none;
+        }
+        
+        /* selected link */
+        a:active {
+          color: yellow;
+          background-color: transparent;
+          text-decoration: none;
+        }
+        img {
+            padding-right: 5px;
+            width: 18px;
+        }
+      </style>
+      <title>Bookmarks | Useful</title>
+    </head>
+    
+    <body>
+      <h2>Useful Bookmarks</h2>
+      <selection class="grid" id="bookmarks-grid"></selection>
+      <script>
+            const grid = document.getElementById("bookmarks-grid")
+
+            fetch('/bookmarks.json')
+                .then(res => res.json())
+                .then((bookmarks) => {
+                    bookmarks.forEach(async (bookmark) => {
+                        const card = document.createElement("div")
+                        card.classList.add("card")
+
+                        for (const book in bookmark) {
+                            const title = document.createElement("h3")
+                            title.textContent = book
+                            card.appendChild(title)
+
+                            bookmark[book].forEach((link) => {
+                                const link_p = document.createElement("p")
+                                const link_i = document.createElement("img")
+                                const link_a = document.createElement("a")
+                                
+
+                                if (link.svg) {
+                                    link_i.src = `https://cdn.simpleicons.org/${link.svg}`
+                                } else {
+                                    const url = new URL(link.furl || link.url)
+                                    link_i.src = link.icon || `https://sexual-gray-swallow.faviconkit.com/${url.hostname}/16`
+                                }
+                                
+                                link_a.href = link.url
+                                link_a.textContent = link.name
+                                link_a.setAttribute('target', '_top')
+
+                                link_p.appendChild(link_i)
+                                link_p.appendChild(link_a)
+                                card.appendChild(link_p)
+                            })
+                            const br = document.createElement("br")
+                            card.appendChild(br)
+                        }
+                        grid.appendChild(card)
+                    });
+                }).catch(err => console.error(err))
+      </script>
+    </body>
+</html>
