@@ -123,6 +123,10 @@
             text-decoration: none!important;
             color: black;
         }
+        .heure{
+            text-align: center;
+            color: white;
+        }
     </style>
 
 </head>
@@ -135,8 +139,10 @@
 
     <div id="app">
         
+<h1 class="heure" id="updatetime"></h1>
+
         <div class="app" id="bookmarks-grid">
-            
+     
 <!--             <button class="bookmark">
                 <div class="bookmark--img"><img
                         src="http://vignette4.wikia.nocookie.net/logopedia/images/5/5e/Icloud.png/revision/latest?cb=20151107204136">
@@ -150,6 +156,12 @@
 
 
     <script>
+
+
+setInterval(function(){
+    document.getElementById("updatetime").innerHTML = (new Date()).toLocaleTimeString();
+}, 1000);
+
         const grid = document.getElementById("bookmarks-grid")
 
         fetch('/bookmarks.json')
