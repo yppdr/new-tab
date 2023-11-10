@@ -167,7 +167,10 @@
 
                         bookmark[book].forEach((link) => {
 
-                            const link_p = document.createElement("button")
+                            //const link_p = document.createElement("button")
+
+                            const link_p = document.createElement("a")
+
                             link_p.classList.add("bookmark")
 
                             const link_i_d = document.createElement("div")
@@ -190,11 +193,12 @@
 
 
                             
-                            link_a.href = link.url
+                            link_p.href = link.url
                             link_a.textContent = link.name
                             link_a.setAttribute('target', '_top')
 
                             link_p.appendChild(link_i_d)
+                            
                             link_i_d.appendChild(link_i)
                             link_p.appendChild(link_a_l)
                             link_a_l.appendChild(link_a)
