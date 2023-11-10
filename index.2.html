@@ -137,12 +137,12 @@
         
         <div class="app" id="bookmarks-grid">
             
-            <button class="bookmark">
+<!--             <button class="bookmark">
                 <div class="bookmark--img"><img
                         src="http://vignette4.wikia.nocookie.net/logopedia/images/5/5e/Icloud.png/revision/latest?cb=20151107204136">
                 </div><label>iCloud</label>
             </button>
-            
+             -->
         </div>
     </div>
    
@@ -156,13 +156,14 @@
             .then(res => res.json())
             .then((bookmarks) => {
                 bookmarks.forEach(async (bookmark) => {
-                    const card = document.createElement("span")
+                    const card = document.createElement("div")
                     //card.classList.add("")
 
                     for (const book in bookmark) {
                         const title = document.createElement("p")
                         title.textContent = book
-                        card.appendChild(title)
+                       // card.appendChild(title)
+                       //grid.appendChild(title)
 
                         bookmark[book].forEach((link) => {
 
@@ -177,14 +178,17 @@
 
                             const link_a_l = document.createElement("label")
 
-                            
-
+                        
                             if (link.svg) {
                                 link_i.src = `https://cdn.simpleicons.org/${link.svg}`
                             } else {
                                 const url = new URL(link.furl || link.url)
                                 link_i.src = link.icon || `https://sexual-gray-swallow.faviconkit.com/${url.hostname}/16`
                             }
+
+
+
+
                             
                             link_a.href = link.url
                             link_a.textContent = link.name
@@ -194,10 +198,11 @@
                             link_i_d.appendChild(link_i)
                             link_p.appendChild(link_a_l)
                             link_a_l.appendChild(link_a)
-                            card.appendChild(link_p)
+                            //card.appendChild(link_p)
+                            grid.appendChild(link_p)
                         })
-                        const br = document.createElement("br")
-                        card.appendChild(br)
+                        //const br = document.createElement("br")
+                        //card.appendChild(br)
                     }
                     grid.appendChild(card)
                 });
